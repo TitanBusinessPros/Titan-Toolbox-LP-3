@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Toolbox 1.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&family=Montserrat:wght@300;500;700&family=Raleway:wght@300;500;700&family=Poppins:wght@300;500;700&family=Oxanium:wght@300;500;700&family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-primary: #00f3ff;
+            --neon-secondary: #ff2d95;
+            --neon-accent: #0ffc33;
+            --neon-alternate: #bf00ff;
+            --neon-highlight: #fffc00;
+            --title-color: #fffc00;
+            --desc-color: #fffc00;
+            --dark-bg: #0a0a16;
+            --darker-bg: #050510;
+            --card-bg: rgba(16, 18, 36, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 70%);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .gallery-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .gallery-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--title-color);
+            color: var(--title-color);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gallery-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--desc-color);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-item.empty::before {
+            content: '+';
+            font-size: 2rem;
+            color: var(--neon-primary);
+            opacity: 0.7;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 15px var(--neon-primary);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .custom-button-container {
+            margin: 30px 0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .custom-button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--neon-alternate), var(--neon-secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .custom-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--neon-alternate);
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(10, 12, 28, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--neon-primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            text-decoration: none; /* Added to remove underlines */
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-item i {
+            color: var(--neon-accent);
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            color: var(--neon-primary);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none; /* Added to remove underlines */
+        }
+        
+        .social-links a:hover {
+            color: var(--neon-accent);
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px var(--neon-accent);
+        }
+        
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gallery-header">
+            <h2 class="gallery-title">Titan Toolbox 1.0</h2>
+            <p class="gallery-description">Now introducing Titan Toolbox 1.0 for business owners. Save money and time while streamlining your business with The Titan Toolbox! These 16 tools are sure to help any start-up or new business thrive & look more professional! For a limited time only get Titan Toolbox 1.0 half off at $24.99 your first year! Titan Toolbox includes tutorials on how to make unlimited websites with free hosting & image links for free! </p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Digital%20Business%20Card%20Maker.png" alt="Gallery image 1">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/NDA%20Builder.png" alt="Gallery image 2">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Employee%20Handbook%20Maker.png" alt="Gallery image 3">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/HTML%20Playground%201.0.png" alt="Gallery image 4">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Image%20Compressor.png" alt="Gallery image 5">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Infographics%20Builder.png" alt="Gallery image 6">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Invoice%20Generator.png" alt="Gallery image 7">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Neon%20Flyer%20Builder.png" alt="Gallery image 8">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Policy%20%26%20Terms%20Builder.png" alt="Gallery image 9">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/QR%20Code%20Maker.png" alt="Gallery image 10">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Quote%20Estimate%20Generator.png" alt="Gallery image 11">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Social%20Media%20Hub%20Maker.png" alt="Gallery image 12">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Tab%20Icon%20Maker.png" alt="Gallery image 13">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Events%20Website%20Builder.png" alt="Gallery image 14">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Watermark%20Tool.png" alt="Gallery image 15">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Digital%20Signature%20Taker.png" alt="Gallery image 16">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/unlimited%20websites.png" alt="Gallery image 17">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/unlimited%20image%20links.png" alt="Gallery image 18">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/FB-Group.png" alt="Gallery image 19">
+                        </div><div class="gallery-item">
+                            <img src="https://github.com/TitanBusinessPros/TBP-Images/raw/main/Digital%20Business%20Card%20Maker.png" alt="Gallery image 20">
+                        </div>
+        </div>
+        
+        <div class="custom-button-container">
+            <a href="https://buy.stripe.com/cNidRagc11845XI6Nh7AI0a" class="custom-button">Pay Now</a>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <h3 class="footer-title">CONTACT INFORMATION</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>titanbusinesspros@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(405) 998-7979</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Oklahoma City, Ok</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/TitanBusinessPros/" target="_blank"><i class="fab fa-facebook"></i></a><a href="https://x.com/Titan_Biz_Pros" target="_blank"><i class="fab fa-twitter"></i></a><a href="https://github.com/TitanBusinessPros" target="_blank"><i class="fab fa-github"></i></a><a href="https://www.youtube.com/@TitanBusinessPros" target="_blank"><i class="fab fa-youtube"></i></a><a href="https://threads.net" target="_blank"><i class="fab fa-threads"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
